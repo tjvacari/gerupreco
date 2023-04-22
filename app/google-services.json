@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "47338777173",
+    "firebase_url": "https://gerupreco-default-rtdb.firebaseio.com",
+    "project_id": "gerupreco",
+    "storage_bucket": "gerupreco.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47338777173:android:a6125fa7e582f4e78c02dc",
+        "android_client_info": {
+          "package_name": "com.example.gerupreco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47338777173-vctufic732hc39m4cmlqu715unp0t986.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZM6TGCMSph8nx4gTagRKf9oZA3f0-nZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47338777173-vctufic732hc39m4cmlqu715unp0t986.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
