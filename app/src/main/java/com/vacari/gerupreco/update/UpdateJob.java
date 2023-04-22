@@ -99,7 +99,7 @@ public class UpdateJob {
             try {
                 File filesDir = getPathApk();
 
-                if(filesDir.listFiles().length > 0) {
+                if(filesDir.listFiles() != null && filesDir.listFiles().length > 0) {
                     for(File file : filesDir.listFiles()) {
                         file.delete();
                     }
