@@ -56,11 +56,6 @@ public class UpdateJob {
 
     private static void checkVerisonCode(AppVersionTO appVersionTO) {
         try {
-            if(getFileApk().exists()) {
-                installApk();
-                return;
-            }
-
             PackageManager packageManager = context.getPackageManager();
             PackageInfo currentApp = packageManager.getPackageInfo(context.getPackageName(), 0);
 
