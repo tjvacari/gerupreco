@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.gerupreco",
+  "applicationId": "com.vacari.gerupreco",
   "variantName": "release",
   "elements": [
     {

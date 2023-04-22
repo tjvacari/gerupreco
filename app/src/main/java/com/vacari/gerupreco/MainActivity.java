@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.vacari.gerupreco.to.ItemTO;
+import com.vacari.gerupreco.update.UpdateJob;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,27 +29,26 @@ public class MainActivity extends AppCompatActivity {
 
     private static Context contextOfApplication;
 
-    private ItensAdapter mAdapter;
+    private ItemsAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UpdateJob.initJobUpdate(this);
         contextOfApplication = getApplicationContext();
         setContentView(R.layout.activity_main);
 
         initGUI();
-        buscarItems();
+        searchItems();
     }
 
     private void initGUI() {
-        {
-            RecyclerView mRecyclerView = findViewById(R.id.recycler_id);
-            LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-            mRecyclerView.setLayoutManager(mLinearLayoutManager);
-            mAdapter = new ItensAdapter(new ArrayList<ItemTO>(), this);
-            mRecyclerView.setAdapter(mAdapter);
-            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        }
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_id);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mAdapter = new ItemsAdapter(new ArrayList<ItemTO>(), this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void buscarItems() {
+    public void searchItems() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("item")
                 .get()
