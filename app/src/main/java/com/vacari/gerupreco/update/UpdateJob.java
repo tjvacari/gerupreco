@@ -12,6 +12,7 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.firestore.DocumentChange;
@@ -138,8 +139,9 @@ public class UpdateJob {
 
     private static void installApk() {
         if(context.getPackageManager().canRequestPackageInstalls()) {
+            Uri apk = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", getFileApk());
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(getFileApk()), "application/vnd.android.package-archive");
+            intent.setDataAndType(apk, "application/vnd.android.package-archive");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
