@@ -97,13 +97,12 @@ public class UpdateJob {
         Handler handler = new Handler(Looper.getMainLooper());
         executor.execute(() -> {
             try {
-                File filesDir = getPathApk();
+                File fileApk = getFileApk();
 
-                if(filesDir.listFiles() != null && filesDir.listFiles().length > 0) {
-                    for(File file : filesDir.listFiles()) {
-                        file.delete();
-                    }
+                if(fileApk.exists()) {
+                    fileApk.delete();
                 }
+                fileApk.createNewFile();
 
                 File outputFile = getFileApk();
 
@@ -154,14 +153,10 @@ public class UpdateJob {
     }
 
     private static File getFileApk() {
-        File filesDir = new File(getPathApk(), "app.apk");
+        File filesDir = new File(context.getFilesDir(), "app.apk");
         if(!filesDir.exists()) {
             filesDir.mkdirs();
         }
         return filesDir;
-    }
-
-    private static File getPathApk() {
-        return new File(context.getFilesDir(), "apk");
     }
 }
