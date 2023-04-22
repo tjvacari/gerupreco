@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'com.google.gms.google-services'
 }
 
 android {
@@ -9,7 +8,7 @@ android {
     buildToolsVersion '30.0.3'
 
     defaultConfig {
-        applicationId "com.example.gerupreco"
+        applicationId "com.vacari.gerupreco"
         minSdk 24
         targetSdk 33
         versionCode 1

@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:47338777173:android:a6125fa7e582f4e78c02dc",
+        "mobilesdk_app_id": "1:47338777173:android:1c78590154077fcb8c02dc",
         "android_client_info": {
-          "package_name": "com.example.gerupreco"
+          "package_name": "com.vacari.gerupreco"
         }
       },
       "oauth_client": [
