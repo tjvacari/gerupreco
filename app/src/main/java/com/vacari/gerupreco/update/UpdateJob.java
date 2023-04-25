@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -91,6 +92,10 @@ public class UpdateJob {
     }
 
     private static void initUpdate(AppVersionTO appVersionTO) {
+        if(requestInstallUnknownApp()) {
+            return;
+        }
+
         showProgress();
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -129,6 +134,29 @@ public class UpdateJob {
                 installApk();
             });
         });
+    }
+
+    private static boolean requestInstallUnknownApp() {
+        if (!context.getPackageManager().canRequestPackageInstalls()) {
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        context.startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).setData(Uri.parse(String.format("package:%s", context.getPackageName()))));
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        context.finishAffinity();
+                        break;
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            confirmationDialog = builder.setTitle(R.string.app_name).setMessage(R.string.install_desconhecido)
+                    .setPositiveButton(R.string.atualizar, dialogClickListener).setCancelable(false).show();
+
+            return true;
+        }
+        return false;
     }
 
     private static void installApk() {

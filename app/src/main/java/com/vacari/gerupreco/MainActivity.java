@@ -38,40 +38,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        UpdateJob.initJobUpdate(this);
         contextOfApplication = getApplicationContext();
         setContentView(R.layout.activity_main);
 
         initGUI();
         searchItems();
-
-        requestInstallUnknownApp();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        requestInstallUnknownApp();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1234 && resultCode == Activity.RESULT_OK) {
-            if (getPackageManager().canRequestPackageInstalls()) {
-                UpdateJob.initJobUpdate(this);
-            }
-        } else {
-            requestInstallUnknownApp();
-        }
-    }
-
-    private void requestInstallUnknownApp() {
-        if (!getPackageManager().canRequestPackageInstalls()) {
-            startActivityForResult(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).setData(Uri.parse(String.format("package:%s", getPackageName()))), 1234);
-        } else {
-            UpdateJob.initJobUpdate(this);
-        }
     }
 
     private void initGUI() {

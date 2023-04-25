@@ -2,39 +2,54 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:clickable="true"
-    android:focusable="true"
-    android:checkable="true"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="5dp"
-    android:layout_margin="6dp"
-    app:cardElevation="4dp">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    app:cardElevation="8dp"
+    android:clickable="true"
+    app:strokeColor="@color/cardview_shadow_end_color"
+    app:strokeWidth="6dp">
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp">
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
 
-        <TextView
-            android:id="@+id/item_descricao"
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Nome Emp"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/baseline_person_search_24"/>
 
-        <TextView
-            android:id="@+id/item_tamanho"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="tamanho"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/item_descricao" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="22dp"
+            android:gravity="center|left"
+            >
+            <TextView
+                android:id="@+id/item_descricao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="Produto"
+                android:paddingBottom="6dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/item_tamanho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#8E8E8E"
+                android:text="tamanho"
+                />
+
+        </LinearLayout>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>
