@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">GeruPreco</string>
+    <string name="app_name">GeruPreço</string>
     <string name="update_dialog">Nova atualização disponível, é necessário atualizar o App para continuar.</string>
     <string name="install_desconhecido">É necessário permitir instalação de Apps desconhecidos.</string>
     <string name="atualizar">Atualizar</string>
     <string name="sair">Sair</string>
     <string name="downloading">Baixando...</string>
+    <string name="bar_code">Código de barras</string>
 
 
 </resources>
