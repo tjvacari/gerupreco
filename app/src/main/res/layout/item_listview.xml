@@ -38,18 +38,29 @@
                 android:text="Produto"
                 android:paddingBottom="6dp"/>
 
-            <TextView
-                android:id="@+id/item_tamanho"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:textColor="#8E8E8E"
-                android:text="tamanho"
-                />
+                >
+                <TextView
+                    android:id="@+id/item_tamanho"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#8E8E8E"
+                    android:text="tamanho"
+                    />
 
+                <TextView
+                    android:id="@+id/item_unidadeMedida"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:textSize="12sp"
+                    android:textColor="#8E8E8E"
+                    android:text="gl"
+                    />
+            </LinearLayout>
         </LinearLayout>
-
-
-
     </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>

@@ -1,8 +1,8 @@
-package com.vacari.gerupreco.to;
+package com.vacari.gerupreco.model.notaparana;
 
 import java.util.Date;
 
-public class Produto {
+public class Product {
 
     private String id;
     private String local;
@@ -17,7 +17,7 @@ public class Produto {
     private String distkm;
     private String gtin;
     private String nrdoc;
-    private Estabelecimento estabelecimento;
+    private Company estabelecimento;
 
     public String getId() {
         return id;
@@ -123,11 +123,11 @@ public class Produto {
         this.nrdoc = nrdoc;
     }
 
-    public Estabelecimento getEstabelecimento() {
+    public Company getEstabelecimento() {
         return estabelecimento;
     }
 
-    public void setEstabelecimento(Estabelecimento estabelecimento) {
+    public void setEstabelecimento(Company estabelecimento) {
         this.estabelecimento = estabelecimento;
     }
 }

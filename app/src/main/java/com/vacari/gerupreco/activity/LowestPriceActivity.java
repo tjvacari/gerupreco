@@ -1,32 +1,35 @@
-package com.vacari.gerupreco;
+package com.vacari.gerupreco.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vacari.gerupreco.adapter.LowestAdapterAdapter;
+import com.vacari.gerupreco.R;
+import com.vacari.gerupreco.retrofit.RetrofitRequest;
+
 import java.util.ArrayList;
 
-public class MenorPrecoActivity extends AppCompatActivity {
+public class LowestPriceActivity extends AppCompatActivity {
 
-    private MenorPrecoAdapter mAdapter;
+    private LowestAdapterAdapter mAdapter;
     private static ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menor_preco);
+        setContentView(R.layout.activity_lowest_price);
 
         String barCode = getIntent().getExtras().getString("BARCODE");
 
         RecyclerView mRecyclerView = findViewById(R.id.recycler_preco_id);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mAdapter = new MenorPrecoAdapter(new ArrayList<>(), this);
+        mAdapter = new LowestAdapterAdapter(new ArrayList<>(), this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -36,16 +39,7 @@ public class MenorPrecoActivity extends AppCompatActivity {
     private void search(String barCode) {
         showProgress();
 
-        RetrofitRequest.buscarEmpreendimento(barCode, this, mAdapter);
-    }
-
-    public void showDialogError(String message) {
-        this.runOnUiThread(() -> {
-            new AlertDialog.Builder(MenorPrecoActivity.this)
-                    .setTitle("Erro")
-                    .setMessage(message)
-                    .show();
-        });
+        RetrofitRequest.searchLowestPrice(barCode, this, mAdapter);
     }
 
     private void showProgress() {

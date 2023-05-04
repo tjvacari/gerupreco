@@ -1,14 +1,14 @@
-package com.vacari.gerupreco.to;
+package com.vacari.gerupreco.model.notaparana;
 
 import java.util.List;
 
-public class MenorPrecoTO {
+public class LowestPrice {
 
     private int tempo;
     private String local;
-    private List<Produto> produtos;
+    private List<Product> produtos;
     private int total;
-    private Precos precos;
+    private Price precos;
 
     public int getTempo() {
         return tempo;
@@ -26,11 +26,11 @@ public class MenorPrecoTO {
         this.local = local;
     }
 
-    public List<Produto> getProdutos() {
+    public List<Product> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<Produto> produtos) {
+    public void setProdutos(List<Product> produtos) {
         this.produtos = produtos;
     }
 
@@ -42,11 +42,11 @@ public class MenorPrecoTO {
         this.total = total;
     }
 
-    public Precos getPrecos() {
+    public Price getPrecos() {
         return precos;
     }
 
-    public void setPrecos(Precos precos) {
+    public void setPrecos(Price precos) {
         this.precos = precos;
     }
 }

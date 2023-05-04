@@ -1,6 +1,6 @@
-package com.vacari.gerupreco.to;
+package com.vacari.gerupreco.model.notaparana;
 
-public class Precos {
+public class Price {
 
     private String min;
     private String max;

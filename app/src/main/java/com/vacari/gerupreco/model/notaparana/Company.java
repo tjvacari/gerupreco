@@ -1,6 +1,6 @@
-package com.vacari.gerupreco.to;
+package com.vacari.gerupreco.model.notaparana;
 
-public class Estabelecimento {
+public class Company {
 
     private String codigo;
     private String nm_fan;

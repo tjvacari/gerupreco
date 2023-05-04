@@ -1,4 +1,4 @@
-package com.vacari.gerupreco;
+package com.vacari.gerupreco.adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,28 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vacari.gerupreco.to.ItemTO;
-import com.vacari.gerupreco.to.Produto;
+import com.vacari.gerupreco.R;
+import com.vacari.gerupreco.activity.MainActivity;
+import com.vacari.gerupreco.activity.LowestPriceActivity;
+import com.vacari.gerupreco.model.Item;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class MenorPrecoAdapter extends RecyclerView.Adapter {
+public class ItemsAdapter extends RecyclerView.Adapter {
 
-    private List<Produto> itemList;
-    private MenorPrecoActivity mActivity;
+    private List<Item> itemList;
+    private MainActivity mActivity;
 
-    public MenorPrecoAdapter(List<Produto> itemList, MenorPrecoActivity mActivity) {
+    public ItemsAdapter(List<Item> itemList, MainActivity mActivity) {
         this.itemList = itemList;
         this.mActivity = mActivity;
     }
 
-    public void update(List<Produto> itemList) {
-        this.itemList = itemList;
-        notifyDataSetChanged();
-    }
-
-    public void refresh(List<Produto> itemList) {
+    public void refresh(List<Item> itemList) {
         this.itemList.clear();;
         this.itemList.addAll(itemList);
         notifyDataSetChanged();
@@ -40,7 +36,16 @@ public class MenorPrecoAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mActivity)
-                .inflate(R.layout.menor_preco_listview, viewGroup, false);
+                .inflate(R.layout.item_listview, viewGroup, false);
+        view.setOnClickListener(v -> {
+            RecyclerView mRecyclerView = mActivity.findViewById(R.id.recycler_id);
+            int itemPosition = mRecyclerView.getChildLayoutPosition(view);
+            Item item = itemList.get(itemPosition);
+
+            Intent intent = new Intent(mActivity, LowestPriceActivity.class);
+            intent.putExtra("BARCODE", item.getBarCode());
+            mActivity.startActivity(intent);
+        });
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -51,14 +56,10 @@ public class MenorPrecoAdapter extends RecyclerView.Adapter {
 
         configureActions(holder);
 
-        Produto item = itemList.get(i);
+        Item item = itemList.get(i);
 
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-        holder.descricao.setText(item.getDesc());
-        holder.preco.setText(item.getValor());
-        holder.data.setText(format.format(item.getDatahora()));
-        holder.local.setText(item.getEstabelecimento().getNm_fan());
+        holder.descricao.setText(item.getDescription());
+        holder.tamanho.setText(item.getSize());
     }
 
     private void configureActions(ViewHolder holder) {
@@ -75,16 +76,12 @@ public class MenorPrecoAdapter extends RecyclerView.Adapter {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView descricao;
-        final TextView preco;
-        final TextView data;
-        final TextView local;
+        final TextView tamanho;
 
         public ViewHolder(View view) {
             super(view);
-            descricao = (TextView) view.findViewById(R.id.descricao);
-            preco = (TextView) view.findViewById(R.id.preco);
-            data = (TextView) view.findViewById(R.id.data);
-            local = (TextView) view.findViewById(R.id.local);
+            descricao = (TextView) view.findViewById(R.id.item_descricao);
+            tamanho = (TextView) view.findViewById(R.id.item_tamanho);
         }
     }
 }

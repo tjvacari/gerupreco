@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.to.AppVersionTO;
+import com.vacari.gerupreco.model.AppVersion;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -47,14 +47,14 @@ public class UpdateJob {
                 Map<String, Object> data = documentChanges.get(0).getDocument().getData();
 
                 ObjectMapper objectMapper = new ObjectMapper();
-                AppVersionTO appVersionTO = objectMapper.convertValue(data, AppVersionTO.class);
+                AppVersion appVersionTO = objectMapper.convertValue(data, AppVersion.class);
 
                 checkVerisonCode(appVersionTO);
             }
         });
     }
 
-    private static void checkVerisonCode(AppVersionTO appVersionTO) {
+    private static void checkVerisonCode(AppVersion appVersionTO) {
         try {
             PackageManager packageManager = context.getPackageManager();
             PackageInfo currentApp = packageManager.getPackageInfo(context.getPackageName(), 0);
@@ -67,7 +67,7 @@ public class UpdateJob {
         }
     }
 
-    private static void showDialogUpdate(AppVersionTO appVersionTO) {
+    private static void showDialogUpdate(AppVersion appVersionTO) {
         if((confirmationDialog != null && confirmationDialog.isShowing()) ||
                 (progressDialog != null && progressDialog.isShowing())) {
             return;
@@ -90,7 +90,7 @@ public class UpdateJob {
                 .setNegativeButton(R.string.sair, dialogClickListener).setCancelable(false).show();
     }
 
-    private static void initUpdate(AppVersionTO appVersionTO) {
+    private static void initUpdate(AppVersion appVersionTO) {
         if(requestInstallUnknownApp()) {
             return;
         }

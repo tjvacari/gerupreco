@@ -1,6 +1,6 @@
-package com.vacari.gerupreco.to;
+package com.vacari.gerupreco.model;
 
-public class AppVersionTO {
+public class AppVersion {
 
     private int versionCode;
     private String url;
