@@ -2,10 +2,19 @@ package com.vacari.gerupreco.model;
 
 public class Item {
 
+    private String id;
     private String barCode;
     private String description;
     private String size;
     private String unitMeasure;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getBarCode() {
         return barCode;

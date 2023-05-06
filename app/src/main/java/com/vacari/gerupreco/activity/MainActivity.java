@@ -1,44 +1,32 @@
 package com.vacari.gerupreco.activity;
 
-import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
-import com.vacari.gerupreco.adapter.ItemsAdapter;
 import com.vacari.gerupreco.R;
+import com.vacari.gerupreco.adapter.ItemAdapter;
+import com.vacari.gerupreco.dialog.GenericDialog;
 import com.vacari.gerupreco.dialog.RegisterProductDialog;
 import com.vacari.gerupreco.model.Item;
-import com.vacari.gerupreco.repository.CallbackRepo;
 import com.vacari.gerupreco.repository.ItemRepository;
 import com.vacari.gerupreco.update.UpdateJob;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ItemsAdapter mAdapter;
+    private ItemAdapter mAdapter;
 
     private ActivityResultLauncher<ScanOptions> barcodeLauncher;
 
@@ -49,8 +37,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initGUI();
+        configureActions();
         registerResults();
         searchItems();
+    }
+
+    private void initGUI() {
+        RecyclerView mRecyclerView = findViewById(R.id.main_recycler);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mAdapter = new ItemAdapter(new ArrayList<>(), this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private void configureActions() {
+        SwipeRefreshLayout swipe = findViewById(R.id.main_swipe);
+        swipe.setOnRefreshListener(() -> searchItems());
     }
 
     private void registerResults() {
@@ -64,15 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openScanBarCode() {
         barcodeLauncher.launch(new ScanOptions());
-    }
-
-    private void initGUI() {
-        RecyclerView mRecyclerView = findViewById(R.id.recycler_id);
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mAdapter = new ItemsAdapter(new ArrayList<>(), this);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
@@ -92,6 +86,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void searchItems() {
-        ItemRepository.searchItem(data -> mAdapter.refresh(data));
+        ItemRepository.searchItem(data -> {
+            mAdapter.refresh(data);
+            SwipeRefreshLayout swipe = findViewById(R.id.main_swipe);
+            swipe.setRefreshing(false);
+        });
+    }
+
+    public void openLowestPrice(String barCode) {
+        Intent intent = new Intent(this, LowestPriceActivity.class);
+        intent.putExtra("BARCODE", barCode);
+        startActivity(intent);
+    }
+
+    public void deleteItem(Item item) {
+        GenericDialog.showConfirmDeleteDialog(this, data -> ItemRepository.delete(item.getId(), dat -> searchItems()));
+    }
+
+    public boolean existProduct(String barCode) {
+        if(mAdapter.existProduct(barCode)) {
+            GenericDialog.showDialogError(this, getString(R.string.product_duplicate));
+        }
+
+        return false;
     }
 }

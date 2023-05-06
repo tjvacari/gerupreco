@@ -1,6 +1,5 @@
 package com.vacari.gerupreco.adapter;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +8,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.vacari.gerupreco.R;
 import com.vacari.gerupreco.activity.MainActivity;
-import com.vacari.gerupreco.activity.LowestPriceActivity;
 import com.vacari.gerupreco.model.Item;
 
 import java.util.List;
 
-public class ItemsAdapter extends RecyclerView.Adapter {
+public class ItemAdapter extends RecyclerView.Adapter {
 
     private List<Item> itemList;
     private MainActivity mActivity;
 
-    public ItemsAdapter(List<Item> itemList, MainActivity mActivity) {
+    public ItemAdapter(List<Item> itemList, MainActivity mActivity) {
         this.itemList = itemList;
         this.mActivity = mActivity;
     }
@@ -37,15 +36,6 @@ public class ItemsAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mActivity)
                 .inflate(R.layout.item_listview, viewGroup, false);
-        view.setOnClickListener(v -> {
-            RecyclerView mRecyclerView = mActivity.findViewById(R.id.recycler_id);
-            int itemPosition = mRecyclerView.getChildLayoutPosition(view);
-            Item item = itemList.get(itemPosition);
-
-            Intent intent = new Intent(mActivity, LowestPriceActivity.class);
-            intent.putExtra("BARCODE", item.getBarCode());
-            mActivity.startActivity(intent);
-        });
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -54,18 +44,24 @@ public class ItemsAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ViewHolder holder = (ViewHolder) viewHolder;
 
-        configureActions(holder);
-
         Item item = itemList.get(i);
 
-        holder.descricao.setText(item.getDescription());
-        holder.tamanho.setText(item.getSize());
+        configureActions(holder, item);
+
+        holder.description.setText(item.getDescription());
+        holder.size.setText(item.getSize());
+        holder.unitMeasure.setText(item.getUnitMeasure());
     }
 
-    private void configureActions(ViewHolder holder) {
-//        holder.imagem.setOnClickListener((View v) -> {
-//            new ImageDialog(mActivity, (ImageView) v).show();
-//        });
+    private void configureActions(ViewHolder holder, Item item) {
+        holder.card.setOnClickListener(view -> {
+            mActivity.openLowestPrice(item.getBarCode());
+        });
+
+        holder.card.setOnLongClickListener(view -> {
+            mActivity.deleteItem(item);
+            return false;
+        });
     }
 
     @Override
@@ -73,15 +69,28 @@ public class ItemsAdapter extends RecyclerView.Adapter {
         return itemList.size();
     }
 
+    public boolean existProduct(String barCode) {
+        for(Item item : itemList) {
+            if(item.getBarCode().equals(barCode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView descricao;
-        final TextView tamanho;
+        final MaterialCardView card;
+        final TextView description;
+        final TextView size;
+        final TextView unitMeasure;
 
         public ViewHolder(View view) {
             super(view);
-            descricao = (TextView) view.findViewById(R.id.item_descricao);
-            tamanho = (TextView) view.findViewById(R.id.item_tamanho);
+            card = view.findViewById(R.id.item_card);
+            description = view.findViewById(R.id.item_description);
+            size = view.findViewById(R.id.item_size);
+            unitMeasure = view.findViewById(R.id.item_unitMeasure);
         }
     }
 }

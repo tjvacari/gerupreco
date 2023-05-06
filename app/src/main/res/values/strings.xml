@@ -1,11 +1,19 @@
 <resources>
     <string name="app_name">GeruPreço</string>
     <string name="update_dialog">Nova atualização disponível, é necessário atualizar o App para continuar.</string>
-    <string name="install_desconhecido">É necessário permitir instalação de Apps desconhecidos.</string>
-    <string name="atualizar">Atualizar</string>
-    <string name="sair">Sair</string>
+    <string name="install_unknown">É necessário permitir instalação de Apps desconhecidos.</string>
+    <string name="update">Atualizar</string>
+    <string name="exit">Sair</string>
     <string name="downloading">Baixando...</string>
     <string name="bar_code">Código de barras</string>
+    <string name="search">Buscando...</string>
+    <string name="error">Erro</string>
+    <string name="new_product">Novo Produto</string>
+    <string name="save">Salvar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Apagar</string>
+    <string name="delete_dialog">Deseja remover este item?</string>
+    <string name="product_duplicate">Pruduto já cadastrado!</string>
 
 
 </resources>

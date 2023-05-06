@@ -110,4 +110,15 @@ public class Company {
     public void setMicroreg(String microreg) {
         this.microreg = microreg;
     }
+
+    public String getFullAddress() {
+        StringBuilder address = new StringBuilder();
+        address.append(getNm_logr());
+        address.append(", ");
+        address.append(getNr_logr());
+        address.append(" - ");
+        address.append(getBairro());
+
+        return address.toString();
+    }
 }

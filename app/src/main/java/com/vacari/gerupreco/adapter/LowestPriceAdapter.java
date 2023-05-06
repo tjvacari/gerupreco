@@ -10,17 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vacari.gerupreco.R;
 import com.vacari.gerupreco.activity.LowestPriceActivity;
+import com.vacari.gerupreco.model.notaparana.Company;
 import com.vacari.gerupreco.model.notaparana.Product;
+import com.vacari.gerupreco.util.DateUtil;
+import com.vacari.gerupreco.util.StringUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class LowestAdapterAdapter extends RecyclerView.Adapter {
+public class LowestPriceAdapter extends RecyclerView.Adapter {
 
     private List<Product> itemList;
     private LowestPriceActivity mActivity;
 
-    public LowestAdapterAdapter(List<Product> itemList, LowestPriceActivity mActivity) {
+    public LowestPriceAdapter(List<Product> itemList, LowestPriceActivity mActivity) {
         this.itemList = itemList;
         this.mActivity = mActivity;
     }
@@ -49,22 +51,15 @@ public class LowestAdapterAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ViewHolder holder = (ViewHolder) viewHolder;
 
-        configureActions(holder);
-
         Product item = itemList.get(i);
+        Company company = item.getEstabelecimento();
 
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-        holder.descricao.setText(item.getDesc());
-        holder.preco.setText(item.getValor());
-        holder.data.setText(format.format(item.getDatahora()));
-        holder.local.setText(item.getEstabelecimento().getNm_fan());
-    }
-
-    private void configureActions(ViewHolder holder) {
-//        holder.imagem.setOnClickListener((View v) -> {
-//            new ImageDialog(mActivity, (ImageView) v).show();
-//        });
+        holder.description.setText(item.getDesc());
+        holder.price.setText("R$ " + item.getValor());
+        holder.date.setText(DateUtil.format.format(item.getDatahora()));
+        holder.time.setText(item.getTempo());
+        holder.company.setText(StringUtil.or(company.getNm_fan(), company.getNm_emp()));
+        holder.address.setText(company.getFullAddress());
     }
 
     @Override
@@ -74,17 +69,21 @@ public class LowestAdapterAdapter extends RecyclerView.Adapter {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView descricao;
-        final TextView preco;
-        final TextView data;
-        final TextView local;
+        final TextView description;
+        final TextView price;
+        final TextView date;
+        final TextView time;
+        final TextView company;
+        final TextView address;
 
         public ViewHolder(View view) {
             super(view);
-            descricao = (TextView) view.findViewById(R.id.descricao);
-            preco = (TextView) view.findViewById(R.id.preco);
-            data = (TextView) view.findViewById(R.id.data);
-            local = (TextView) view.findViewById(R.id.local);
+            description = view.findViewById(R.id.lp_description);
+            price = view.findViewById(R.id.lp_price);
+            date = view.findViewById(R.id.lp_date);
+            time = view.findViewById(R.id.lp_time);
+            company = view.findViewById(R.id.lp_company);
+            address = view.findViewById(R.id.lp_address);
         }
     }
 }

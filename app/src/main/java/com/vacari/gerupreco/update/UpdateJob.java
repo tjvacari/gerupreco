@@ -86,8 +86,8 @@ public class UpdateJob {
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        confirmationDialog = builder.setTitle(R.string.app_name).setMessage(R.string.update_dialog).setPositiveButton(R.string.atualizar, dialogClickListener)
-                .setNegativeButton(R.string.sair, dialogClickListener).setCancelable(false).show();
+        confirmationDialog = builder.setTitle(R.string.app_name).setMessage(R.string.update_dialog).setPositiveButton(R.string.update, dialogClickListener)
+                .setNegativeButton(R.string.exit, dialogClickListener).setCancelable(false).show();
     }
 
     private static void initUpdate(AppVersion appVersionTO) {
@@ -150,8 +150,8 @@ public class UpdateJob {
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            confirmationDialog = builder.setTitle(R.string.app_name).setMessage(R.string.install_desconhecido)
-                    .setPositiveButton(R.string.atualizar, dialogClickListener).setCancelable(false).show();
+            confirmationDialog = builder.setTitle(R.string.app_name).setMessage(R.string.install_unknown)
+                    .setPositiveButton(R.string.update, dialogClickListener).setCancelable(false).show();
 
             return true;
         }
@@ -159,18 +159,16 @@ public class UpdateJob {
     }
 
     private static void installApk() {
-        if(context.getPackageManager().canRequestPackageInstalls()) {
-            Uri apk = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", getFileApk());
-            Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
-            intent.setDataAndType(apk, "application/vnd.android.package-archive");
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            context.startActivity(intent);
-        }
+        Uri apk = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", getFileApk());
+        Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+        intent.setDataAndType(apk, "application/vnd.android.package-archive");
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        context.startActivity(intent);
     }
 
     private static void showProgress() {
-        progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.app_name),
-                context.getResources().getString(R.string.downloading), true);
+        progressDialog = ProgressDialog.show(context, context.getString(R.string.app_name),
+                context.getString(R.string.downloading), true);
     }
 
     private static void closeProgress() {
