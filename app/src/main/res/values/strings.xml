@@ -14,6 +14,7 @@
     <string name="delete">Apagar</string>
     <string name="delete_dialog">Deseja remover este item?</string>
     <string name="product_duplicate">Pruduto já cadastrado!</string>
+    <string name="ok">Ok</string>
 
 
 </resources>

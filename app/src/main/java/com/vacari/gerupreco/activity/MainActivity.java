@@ -66,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openScanBarCode() {
-        barcodeLauncher.launch(new ScanOptions());
+        ScanOptions options = new ScanOptions();
+        options.setDesiredBarcodeFormats(ScanOptions.EAN_13);
+        barcodeLauncher.launch(options);
     }
 
     @Override
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean existProduct(String barCode) {
         if(mAdapter.existProduct(barCode)) {
             GenericDialog.showDialogError(this, getString(R.string.product_duplicate));
+            return true;
         }
 
         return false;

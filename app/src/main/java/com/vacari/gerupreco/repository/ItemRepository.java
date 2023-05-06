@@ -7,6 +7,7 @@ import com.vacari.gerupreco.model.Item;
 import com.vacari.gerupreco.util.Callback;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,8 @@ public class ItemRepository {
                             item.setId(document.getId());
                             itemTOList.add(item);
                         }
+
+                        itemTOList.sort(Comparator.comparing(Item::getDescription).thenComparing(Item::getSize));
                         callback.callback(itemTOList);
                     }
                 });

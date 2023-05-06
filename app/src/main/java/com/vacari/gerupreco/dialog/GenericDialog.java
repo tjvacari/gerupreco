@@ -16,6 +16,7 @@ public class GenericDialog {
             new AlertDialog.Builder(context)
                     .setTitle(context.getString(R.string.error))
                     .setMessage(message)
+                    .setPositiveButton(R.string.ok, null)
                     .show();
         });
     }
