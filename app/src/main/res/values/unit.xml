@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="unit_measurement">
-        <item>g</item>
-        <item>kg</item>
-        <item>ml</item>
-        <item>l</item>
+        <item>G</item>
+        <item>KG</item>
+        <item>ML</item>
+        <item>L</item>
     </string-array>
 </resources>
