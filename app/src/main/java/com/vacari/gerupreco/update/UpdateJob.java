@@ -100,12 +100,12 @@ public class UpdateJob {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
         executor.execute(() -> {
-            try {
-                trimCache(context);
-                File fileApk = getFileApk();
-                fileApk.createNewFile();
 
-                File outputFile = getFileApk();
+            deleteDir();
+            File outputFile = getFileApk();
+
+            try {
+                outputFile.createNewFile();
 
                 URL u = new URL(appVersionTO.getUrl());
                 URLConnection conn = u.openConnection();
@@ -127,35 +127,14 @@ public class UpdateJob {
 
             handler.post(() -> {
                 closeProgress();
-                installApk();
+                installApk(outputFile);
             });
         });
     }
 
-    public static void trimCache(AppCompatActivity context) {
-        try {
-            File dir = context.getCacheDir();
-            deleteDir(dir);
-            dir = context.getFilesDir();
-            deleteDir(dir);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static boolean deleteDir(File dir) {
-        if (dir != null && dir.isDirectory()) {
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-            return dir.delete();
-        }
-        else {
-            return false;
+    public static void deleteDir() {
+        for (File f : context.getFilesDir().listFiles()) {
+            f.delete();
         }
     }
 
@@ -182,8 +161,8 @@ public class UpdateJob {
         return false;
     }
 
-    private static void installApk() {
-        Uri apk = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", getFileApk());
+    private static void installApk(File outputFile) {
+        Uri apk = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", outputFile);
         Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
         intent.setDataAndType(apk, "application/vnd.android.package-archive");
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -202,7 +181,8 @@ public class UpdateJob {
     }
 
     private static File getFileApk() {
-        File filesDir = new File(context.getFilesDir(), "app.apk");
+        long current = System.currentTimeMillis();
+        File filesDir = new File(context.getFilesDir(), "app-" + current + ".apk");
         if(!filesDir.exists()) {
             filesDir.mkdirs();
         }
