@@ -182,10 +182,6 @@ public class UpdateJob {
 
     private static File getFileApk() {
         long current = System.currentTimeMillis();
-        File filesDir = new File(context.getFilesDir(), "app-" + current + ".apk");
-        if(!filesDir.getParentFile().exists()) {
-            filesDir.getParentFile().mkdirs();
-        }
-        return filesDir;
+        return new File(context.getFilesDir(), "app-" + current + ".apk");
     }
 }
