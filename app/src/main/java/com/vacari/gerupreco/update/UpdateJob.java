@@ -101,11 +101,8 @@ public class UpdateJob {
         Handler handler = new Handler(Looper.getMainLooper());
         executor.execute(() -> {
             try {
+                trimCache(context);
                 File fileApk = getFileApk();
-
-                if(fileApk.exists()) {
-                    fileApk.delete();
-                }
                 fileApk.createNewFile();
 
                 File outputFile = getFileApk();
@@ -133,6 +130,33 @@ public class UpdateJob {
                 installApk();
             });
         });
+    }
+
+    public static void trimCache(AppCompatActivity context) {
+        try {
+            File dir = context.getCacheDir();
+            deleteDir(dir);
+            dir = context.getFilesDir();
+            deleteDir(dir);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+            return dir.delete();
+        }
+        else {
+            return false;
+        }
     }
 
     private static boolean requestInstallUnknownApp() {
