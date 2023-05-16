@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openScanBarCode() {
         ScanOptions options = new ScanOptions();
-        options.setDesiredBarcodeFormats(ScanOptions.EAN_13);
+        options.setDesiredBarcodeFormats(ScanOptions.EAN_13, ScanOptions.EAN_8);
         barcodeLauncher.launch(options);
     }
 
