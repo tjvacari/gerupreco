@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.vacari.gerupreco.R;
 import com.vacari.gerupreco.model.AppVersion;
 
+import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -111,9 +112,10 @@ public class UpdateJob {
                 URLConnection conn = u.openConnection();
                 conn.setUseCaches(false);
                 conn.setDefaultUseCaches(false);
+                conn.connect();
                 int contentLength = conn.getContentLength();
 
-                DataInputStream stream = new DataInputStream(u.openStream());
+                DataInputStream stream = new DataInputStream(new BufferedInputStream(conn.getInputStream()));;
 
                 byte[] buffer = new byte[contentLength];
                 stream.readFully(buffer);
