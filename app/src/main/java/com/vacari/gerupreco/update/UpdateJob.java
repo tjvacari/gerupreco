@@ -109,6 +109,7 @@ public class UpdateJob {
 
                 URL u = new URL(appVersionTO.getUrl());
                 URLConnection conn = u.openConnection();
+                conn.setUseCaches(false);
                 int contentLength = conn.getContentLength();
 
                 DataInputStream stream = new DataInputStream(u.openStream());
