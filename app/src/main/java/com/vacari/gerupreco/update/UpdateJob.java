@@ -112,7 +112,7 @@ public class UpdateJob {
                 URLConnection conn = u.openConnection();
                 conn.setUseCaches(false);
                 conn.setDefaultUseCaches(false);
-                conn.connect();
+                conn.setRequestProperty("Cache-Control", "no-cache");
                 int contentLength = conn.getContentLength();
 
                 DataInputStream stream = new DataInputStream(new BufferedInputStream(conn.getInputStream()));;
