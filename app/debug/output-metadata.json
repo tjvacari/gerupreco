@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 3,
-      "versionName": "1.0.3-T",
-      "outputFile": "app-v3-debug.apk"
+      "versionCode": 4,
+      "versionName": "1.0.4-T",
+      "outputFile": "app-v4-debug.apk"
     }
   ],
   "elementType": "File"
