@@ -67,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openScanBarCode() {
         ScanOptions options = new ScanOptions();
-        options.setDesiredBarcodeFormats(ScanOptions.EAN_13, ScanOptions.EAN_8);
+        // TODO realizar consulta na nota parana quando ler qrcode
+//        options.setDesiredBarcodeFormats(ScanOptions.EAN_13, ScanOptions.EAN_8);
+        options.setDesiredBarcodeFormats(ScanOptions.EAN_13);
+        options.setBeepEnabled(false);
+        options.setOrientationLocked(false);
         barcodeLauncher.launch(options);
     }
 
