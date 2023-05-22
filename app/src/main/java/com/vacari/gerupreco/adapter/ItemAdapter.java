@@ -1,8 +1,11 @@
 package com.vacari.gerupreco.adapter;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,10 +61,10 @@ public class ItemAdapter extends RecyclerView.Adapter {
             mActivity.openLowestPrice(item.getBarCode());
         });
 
-        holder.card.setOnLongClickListener(view -> {
-            mActivity.deleteItem(item);
-            return false;
-        });
+//        holder.card.setOnLongClickListener(view -> {
+//            mActivity.deleteItem(item);
+//            return false;
+//        });
     }
 
     @Override
@@ -78,7 +81,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
         return false;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         final MaterialCardView card;
         final TextView description;
@@ -91,6 +94,15 @@ public class ItemAdapter extends RecyclerView.Adapter {
             description = view.findViewById(R.id.item_description);
             size = view.findViewById(R.id.item_size);
             unitMeasure = view.findViewById(R.id.item_unitMeasure);
+
+            card.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            //groupId, itemId, order, title
+            menu.add(0, v.getId(), 0, mActivity.getString(R.string.edit));
+            menu.add(0, v.getId(), 1, mActivity.getString(R.string.delete));
         }
     }
 }

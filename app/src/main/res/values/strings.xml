@@ -11,10 +11,11 @@
     <string name="new_product">Novo Produto</string>
     <string name="save">Salvar</string>
     <string name="cancel">Cancelar</string>
-    <string name="delete">Apagar</string>
+    <string name="delete">Excluir</string>
     <string name="delete_dialog">Deseja remover este item?</string>
     <string name="product_duplicate">Pruduto já cadastrado!</string>
     <string name="ok">Ok</string>
+    <string name="edit">Editar</string>
 
 
 </resources>
