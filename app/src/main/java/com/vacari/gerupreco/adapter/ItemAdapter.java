@@ -2,6 +2,7 @@ package com.vacari.gerupreco.adapter;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import com.vacari.gerupreco.model.Item;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter {
+public class ItemAdapter extends RecyclerView.Adapter implements View.OnCreateContextMenuListener {
 
     private List<Item> itemList;
     private MainActivity mActivity;
@@ -39,6 +40,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mActivity)
                 .inflate(R.layout.item_listview, viewGroup, false);
+        view.setOnCreateContextMenuListener(this);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -54,6 +56,12 @@ public class ItemAdapter extends RecyclerView.Adapter {
         holder.description.setText(item.getDescription());
         holder.size.setText(item.getSize());
         holder.unitMeasure.setText(item.getUnitMeasure());
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = new MenuInflater(v.getContext());
+        inflater.inflate(R.menu.context_menu, menu);
     }
 
     private void configureActions(ViewHolder holder, Item item) {
@@ -81,7 +89,11 @@ public class ItemAdapter extends RecyclerView.Adapter {
         return false;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    public Item getItemByPosition(int position) {
+        return itemList.get(position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         final MaterialCardView card;
         final TextView description;
@@ -94,15 +106,6 @@ public class ItemAdapter extends RecyclerView.Adapter {
             description = view.findViewById(R.id.item_description);
             size = view.findViewById(R.id.item_size);
             unitMeasure = view.findViewById(R.id.item_unitMeasure);
-
-            card.setOnCreateContextMenuListener(this);
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            //groupId, itemId, order, title
-            menu.add(0, v.getId(), 0, mActivity.getString(R.string.edit));
-            menu.add(0, v.getId(), 1, mActivity.getString(R.string.delete));
         }
     }
 }

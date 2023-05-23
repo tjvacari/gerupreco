@@ -2,8 +2,11 @@ package com.vacari.gerupreco.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -25,7 +28,7 @@ import com.vacari.gerupreco.update.UpdateJob;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
     private ItemAdapter mAdapter;
 
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new ItemAdapter(new ArrayList<>(), this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        registerForContextMenu(mRecyclerView);
     }
 
     private void configureActions() {
@@ -120,9 +124,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onMenuItemClick(MenuItem item) {
+
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Object item = mAdapter.getItem(info.position);
+        int position = info.position;
+
+        // Manipule as ações do menu de contexto aqui
+//        switch (item.getItemId()) {
+//            case R.id.action_delete:
+//                // Lógica para excluir o item selecionado
+//                return true;
+//            case R.id.action_edit:
+//                // Lógica para editar o item selecionado
+//                return true;
+//            default:
+//                return false;
+//        }
         return true;
     }
 }

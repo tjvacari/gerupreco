@@ -16,6 +16,7 @@
     <string name="product_duplicate">Pruduto já cadastrado!</string>
     <string name="ok">Ok</string>
     <string name="edit">Editar</string>
+    <string name="alert_create">Criar Alerta</string>
 
 
 </resources>
