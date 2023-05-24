@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.model.Item;
+import com.vacari.gerupreco.model.firebase.Item;
 import com.vacari.gerupreco.util.Callback;
 
 public class GenericDialog {
@@ -36,7 +36,7 @@ public class GenericDialog {
             };
 
             new AlertDialog.Builder(context).setTitle(R.string.app_name).setMessage(R.string.delete_dialog)
-                    .setPositiveButton(R.string.delete, dialogClickListener).setNegativeButton(R.string.cancel, dialogClickListener).setCancelable(false).show();
+                    .setPositiveButton(R.string.delete, dialogClickListener).setNegativeButton(R.string.cancel, dialogClickListener).show();
         });
     }
 }

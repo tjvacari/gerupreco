@@ -9,38 +9,63 @@ import android.widget.Spinner;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.vacari.gerupreco.R;
 import com.vacari.gerupreco.activity.MainActivity;
-import com.vacari.gerupreco.model.Item;
+import com.vacari.gerupreco.model.firebase.Item;
 import com.vacari.gerupreco.repository.ItemRepository;
 import com.vacari.gerupreco.util.Callback;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterProductDialog {
 
     private MainActivity context;
     private String barCode;
+    private View dialog;
+    private Item item;
+    private boolean isNew;
 
-    public RegisterProductDialog(MainActivity context, String barCode) {
+    public RegisterProductDialog(MainActivity context, String barCode, Item item) {
         this.context = context;
         this.barCode = barCode;
+        this.item = item;
+        this.isNew = item == null;
+
+        initGUI();
+        setInfo();
     }
 
-    public void show() {
-        View dialog = context.getLayoutInflater().inflate(R.layout.register_dialog, null);
-        Spinner spinner = (Spinner) dialog.findViewById(R.id.edit_unitMeasure);
-        EditText editCodBarras = dialog.findViewById(R.id.edit_barCode);
+    private void initGUI() {
+        dialog = context.getLayoutInflater().inflate(R.layout.register_dialog, null);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                 R.array.unit_measurement, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setSelection(0);
 
-        editCodBarras.setText(barCode);
+        Spinner editUnitMeasure = dialog.findViewById(R.id.edit_unitMeasure);
+        editUnitMeasure.setAdapter(adapter);
+        editUnitMeasure.setSelection(0);
+    }
 
+    private void setInfo() {
+        EditText editBarCode = dialog.findViewById(R.id.edit_barCode);
+        EditText editDescription = dialog.findViewById(R.id.edit_description);
+        EditText editSize = dialog.findViewById(R.id.edit_size);
+        Spinner editUnitMeasure = dialog.findViewById(R.id.edit_unitMeasure);
+
+        if(barCode != null) {
+            editBarCode.setText(barCode);
+        }
+
+        if(!isNew) {
+            editBarCode.setText(item.getBarCode());
+            editDescription.setText(item.getDescription());
+            editSize.setText(item.getSize());
+
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.unit_measurement, android.R.layout.simple_spinner_item);
+            editUnitMeasure.setSelection(adapter.getPosition(item.getUnitMeasure()));
+        }
+    }
+
+    public void show() {
         new MaterialAlertDialogBuilder(context)
-                .setTitle(R.string.new_product)
+                .setTitle(isNew ? R.string.new_product : R.string.edit)
                 .setCancelable(false)
                 .setView(dialog)
                 .setPositiveButton(R.string.save, (DialogInterface dialogInterface, int i) -> {
@@ -56,7 +81,7 @@ public class RegisterProductDialog {
     private boolean saveProduct(View dialog) {
         EditText editBarCode = dialog.findViewById(R.id.edit_barCode);
 
-        if(context.existProduct(editBarCode.getText().toString())) {
+        if(isNew && context.existProduct(editBarCode.getText().toString())) {
             return false;
         }
 
@@ -64,16 +89,18 @@ public class RegisterProductDialog {
         EditText size = dialog.findViewById(R.id.edit_size);
         Spinner unitMeasure = dialog.findViewById(R.id.edit_unitMeasure);
 
-        Map<String, Object> item = new HashMap<>();
-        item.put("barCode", editBarCode.getText().toString());
-        item.put("description", description.getText().toString());
-        item.put("size", size.getText().toString());
-        item.put("unitMeasure", unitMeasure.getSelectedItem().toString());
+        Item item = new Item();
+        item.setDescription(description.getText().toString());
+        item.setBarCode(editBarCode.getText().toString());
+        item.setSize(size.getText().toString());
+        item.setUnitMeasure(unitMeasure.getSelectedItem().toString());
 
-        ItemRepository.save(item, (Callback<Item>) data -> {
-            context.searchItems();
-        });
-
+        if(isNew) {
+            ItemRepository.save(item, (Callback<Item>) data -> context.searchItems());
+        } else {
+            item.setId(this.item.getId());
+            ItemRepository.update(item, (Callback<Item>) data -> context.searchItems());
+        }
         return true;
     }
 }

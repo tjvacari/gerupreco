@@ -3,7 +3,7 @@ package com.vacari.gerupreco.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.vacari.gerupreco.model.Item;
+import com.vacari.gerupreco.model.firebase.Item;
 import com.vacari.gerupreco.util.Callback;
 
 import java.util.ArrayList;
@@ -34,7 +34,11 @@ public class ItemRepository {
                 });
     }
 
-    public static void save(Map<String, Object> item, Callback<Item> callback) {
+    public static void save(Item item, Callback<Item> callback) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> values = objectMapper.convertValue(item, Map.class);
+        values.remove("id");
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("item")
                 .add(item)
@@ -46,6 +50,18 @@ public class ItemRepository {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("item").document(id)
                 .delete()
+                .addOnSuccessListener(aVoid -> callback.callback(null))
+                .addOnFailureListener(e -> {});
+    }
+
+    public static void update(Item item, Callback<Item> callback) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> values = objectMapper.convertValue(item, Map.class);
+        values.remove("id");
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("item").document(item.getId())
+                .update(values)
                 .addOnSuccessListener(aVoid -> callback.callback(null))
                 .addOnFailureListener(e -> {});
     }

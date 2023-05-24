@@ -3,6 +3,8 @@ package com.vacari.gerupreco.model.sqlite;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.math.BigDecimal;
+
 @DatabaseTable(tableName = "notification")
 public class Notification {
 
@@ -13,7 +15,19 @@ public class Notification {
     private String barCorde;
 
     @DatabaseField
+    private String description;
+
+    @DatabaseField
     private Long dateType;
+
+    @DatabaseField
+    private BigDecimal lastLowestPrice;
+
+    @DatabaseField
+    private BigDecimal targetPrice;
+
+    @DatabaseField
+    private Long date;
 
     @DatabaseField
     private boolean active;
@@ -48,5 +62,37 @@ public class Notification {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public BigDecimal getLastLowestPrice() {
+        return lastLowestPrice;
+    }
+
+    public void setLastLowestPrice(BigDecimal lastLowestPrice) {
+        this.lastLowestPrice = lastLowestPrice;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getDate() {
+        return date;
+    }
+
+    public void setDate(Long date) {
+        this.date = date;
+    }
+
+    public BigDecimal getTargetPrice() {
+        return targetPrice;
+    }
+
+    public void setTargetPrice(BigDecimal targetPrice) {
+        this.targetPrice = targetPrice;
     }
 }

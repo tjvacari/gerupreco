@@ -2,12 +2,8 @@ package com.vacari.gerupreco.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,15 +16,18 @@ import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 import com.vacari.gerupreco.R;
 import com.vacari.gerupreco.adapter.ItemAdapter;
+import com.vacari.gerupreco.database.DatabaseHelper;
+import com.vacari.gerupreco.database.DatabaseManager;
+import com.vacari.gerupreco.dialog.CreateNotificationProductDialog;
 import com.vacari.gerupreco.dialog.GenericDialog;
 import com.vacari.gerupreco.dialog.RegisterProductDialog;
-import com.vacari.gerupreco.model.Item;
+import com.vacari.gerupreco.model.firebase.Item;
 import com.vacari.gerupreco.repository.ItemRepository;
 import com.vacari.gerupreco.update.UpdateJob;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private ItemAdapter mAdapter;
 
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UpdateJob.initJobUpdate(this);
+        DatabaseManager.initDatabase(this);
         setContentView(R.layout.activity_main);
 
         initGUI();
@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         mAdapter = new ItemAdapter(new ArrayList<>(), this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        registerForContextMenu(mRecyclerView);
     }
 
     private void configureActions() {
@@ -65,19 +64,9 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         barcodeLauncher = registerForActivityResult(new ScanContract(),
                 result -> {
                     if(result.getContents() != null) {
-                        new RegisterProductDialog(MainActivity.this, result.getContents()).show();
+                        new RegisterProductDialog(MainActivity.this, result.getContents(), null).show();
                     }
                 });
-    }
-
-    public void openScanBarCode() {
-        ScanOptions options = new ScanOptions();
-        // TODO realizar consulta na nota parana quando ler qrcode
-//        options.setDesiredBarcodeFormats(ScanOptions.EAN_13, ScanOptions.EAN_8);
-        options.setDesiredBarcodeFormats(ScanOptions.EAN_13);
-        options.setBeepEnabled(false);
-        options.setOrientationLocked(false);
-        barcodeLauncher.launch(options);
     }
 
     @Override
@@ -88,8 +77,13 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.scan_barcode) {
+        if(item.getItemId() == R.id.menu_scan_barcode) {
             openScanBarCode();
+            return true;
+        }
+
+        if(item.getItemId() == R.id.menu_notification) {
+            openNotification();
             return true;
         }
 
@@ -104,14 +98,25 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
         });
     }
 
+    public void openScanBarCode() {
+        ScanOptions options = new ScanOptions();
+        // TODO realizar consulta na nota parana quando ler qrcode
+//        options.setDesiredBarcodeFormats(ScanOptions.EAN_13, ScanOptions.EAN_8);
+        options.setDesiredBarcodeFormats(ScanOptions.EAN_13);
+        options.setBeepEnabled(false);
+        options.setOrientationLocked(false);
+        barcodeLauncher.launch(options);
+    }
+
     public void openLowestPrice(String barCode) {
         Intent intent = new Intent(this, LowestPriceActivity.class);
         intent.putExtra("BARCODE", barCode);
         startActivity(intent);
     }
 
-    public void deleteItem(Item item) {
-        GenericDialog.showConfirmDeleteDialog(this, data -> ItemRepository.delete(item.getId(), dat -> searchItems()));
+    public void openNotification() {
+        Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+        startActivity(intent);
     }
 
     public boolean existProduct(String barCode) {
@@ -119,27 +124,21 @@ public class MainActivity extends AppCompatActivity implements MenuItem.OnMenuIt
             GenericDialog.showDialogError(this, getString(R.string.product_duplicate));
             return true;
         }
-
         return false;
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
+    public void deleteItem(int position) {
+        Item item = mAdapter.getItemByPosition(position);
+        GenericDialog.showConfirmDeleteDialog(this, data -> ItemRepository.delete(item.getId(), dat -> searchItems()));
+    }
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        int position = info.position;
+    public void createNotification(int position) {
+        Item item = mAdapter.getItemByPosition(position);
+        new CreateNotificationProductDialog(this, item).show();
+    }
 
-        // Manipule as ações do menu de contexto aqui
-//        switch (item.getItemId()) {
-//            case R.id.action_delete:
-//                // Lógica para excluir o item selecionado
-//                return true;
-//            case R.id.action_edit:
-//                // Lógica para editar o item selecionado
-//                return true;
-//            default:
-//                return false;
-//        }
-        return true;
+    public void editItem(int position) {
+        Item item = mAdapter.getItemByPosition(position);
+        new RegisterProductDialog(MainActivity.this, null, item).show();
     }
 }

@@ -27,11 +27,6 @@ public class LowestPriceAdapter extends RecyclerView.Adapter {
         this.mActivity = mActivity;
     }
 
-    public void update(List<Product> itemList) {
-        this.itemList = itemList;
-        notifyDataSetChanged();
-    }
-
     public void refresh(List<Product> itemList) {
         this.itemList.clear();;
         this.itemList.addAll(itemList);

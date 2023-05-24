@@ -17,6 +17,10 @@
     <string name="ok">Ok</string>
     <string name="edit">Editar</string>
     <string name="alert_create">Criar Alerta</string>
+    <string name="target_price">Preço alvo</string>
+    <string name="new_notification">Nova notificação</string>
+    <string name="notifications">Notificações</string>
+    <string name="notification_success">Notificação registrada</string>
 
 
 </resources>

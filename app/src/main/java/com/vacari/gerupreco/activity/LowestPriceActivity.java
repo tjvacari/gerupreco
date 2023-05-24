@@ -30,7 +30,7 @@ public class LowestPriceActivity extends AppCompatActivity {
     }
 
     private void initGUI() {
-        RecyclerView mRecyclerView = findViewById(R.id.recycler_preco_id);
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_price_id);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mAdapter = new LowestPriceAdapter(new ArrayList<>(), this);

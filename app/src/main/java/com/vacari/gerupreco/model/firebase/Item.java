@@ -1,4 +1,4 @@
-package com.vacari.gerupreco.model;
+package com.vacari.gerupreco.model.firebase;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

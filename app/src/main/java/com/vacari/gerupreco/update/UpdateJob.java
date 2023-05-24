@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.model.AppVersion;
+import com.vacari.gerupreco.model.firebase.AppVersion;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
