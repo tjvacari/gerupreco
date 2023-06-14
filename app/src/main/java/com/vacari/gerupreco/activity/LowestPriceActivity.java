@@ -41,8 +41,10 @@ public class LowestPriceActivity extends AppCompatActivity {
     private void search(String barCode) {
         showProgress();
         RetrofitRequest.searchLowestPrice(barCode, this, data -> {
-            mAdapter.refresh(data);
-            closeProgress();
+            LowestPriceActivity.this.runOnUiThread(() -> {
+                mAdapter.refresh(data);
+                closeProgress();
+            });
         });
     }
 

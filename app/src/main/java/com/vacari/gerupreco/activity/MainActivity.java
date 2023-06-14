@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UpdateJob.initJobUpdate(this);
-        DatabaseManager.initDatabase(this);
+//        DatabaseManager.initDatabase(this);
         setContentView(R.layout.activity_main);
 
         initGUI();
@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        if(item.getItemId() == R.id.menu_notification) {
-            openNotification();
-            return true;
-        }
+//        if(item.getItemId() == R.id.menu_notification) {
+//            openNotification();
+//            return true;
+//        }
 
         return false;
     }

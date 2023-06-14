@@ -114,11 +114,11 @@ public class ItemAdapter extends RecyclerView.Adapter {
                 return true;
             });
 
-            MenuItem alert = (MenuItem) menu.findItem(R.id.action_alert);
-            alert.setOnMenuItemClickListener(menuItem -> {
-                mActivity.createNotification(position);
-                return true;
-            });
+//            MenuItem alert = (MenuItem) menu.findItem(R.id.action_alert);
+//            alert.setOnMenuItemClickListener(menuItem -> {
+//                mActivity.createNotification(position);
+//                return true;
+//            });
 
             MenuItem edit = (MenuItem) menu.findItem(R.id.action_edit);
             edit.setOnMenuItemClickListener(menuItem -> {

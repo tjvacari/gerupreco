@@ -5,8 +5,8 @@
         android:icon="@drawable/baseline_qr_code_scanner_24"
         android:title="@string/bar_code"
         app:showAsAction="ifRoom" />
-    <item android:id="@+id/menu_notification"
-        android:icon="@drawable/baseline_notifications_active_24"
-        android:title="@string/bar_code"
-        app:showAsAction="ifRoom" />
+<!--    <item android:id="@+id/menu_notification"-->
+<!--        android:icon="@drawable/baseline_notifications_active_24"-->
+<!--        android:title="@string/bar_code"-->
+<!--        app:showAsAction="ifRoom" />-->
 </menu>
