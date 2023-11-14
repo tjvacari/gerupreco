@@ -1,4 +1,4 @@
-package com.vacari.gerupreco.adapter;
+package com.vacari.gerupreco.adapter.lowestprice;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.activity.LowestPriceActivity;
+import com.vacari.gerupreco.activity.lowestprice.LowestPriceActivity;
 import com.vacari.gerupreco.model.notaparana.Company;
 import com.vacari.gerupreco.model.notaparana.Product;
 import com.vacari.gerupreco.util.DateUtil;

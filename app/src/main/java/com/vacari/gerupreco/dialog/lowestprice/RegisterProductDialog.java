@@ -1,4 +1,4 @@
-package com.vacari.gerupreco.dialog;
+package com.vacari.gerupreco.dialog.lowestprice;
 
 import android.content.DialogInterface;
 import android.view.View;
@@ -8,20 +8,20 @@ import android.widget.Spinner;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.activity.MainActivity;
+import com.vacari.gerupreco.activity.lowestprice.LowestPriceProduct;
 import com.vacari.gerupreco.model.firebase.Item;
 import com.vacari.gerupreco.repository.ItemRepository;
 import com.vacari.gerupreco.util.Callback;
 
 public class RegisterProductDialog {
 
-    private MainActivity context;
+    private LowestPriceProduct context;
     private String barCode;
     private View dialog;
     private Item item;
     private boolean isNew;
 
-    public RegisterProductDialog(MainActivity context, String barCode, Item item) {
+    public RegisterProductDialog(LowestPriceProduct context, String barCode, Item item) {
         this.context = context;
         this.barCode = barCode;
         this.item = item;

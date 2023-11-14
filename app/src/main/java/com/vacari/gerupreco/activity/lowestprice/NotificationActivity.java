@@ -1,22 +1,17 @@
-package com.vacari.gerupreco.activity;
+package com.vacari.gerupreco.activity.lowestprice;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.AndroidException;
 
 import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.adapter.LowestPriceAdapter;
-import com.vacari.gerupreco.adapter.NotificationAdapter;
+import com.vacari.gerupreco.adapter.lowestprice.NotificationAdapter;
 import com.vacari.gerupreco.model.sqlite.Notification;
 import com.vacari.gerupreco.repository.NotificationRepository;
-import com.vacari.gerupreco.retrofit.RetrofitRequest;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class NotificationActivity extends AppCompatActivity {

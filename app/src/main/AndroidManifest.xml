@@ -17,20 +17,31 @@
         android:theme="@style/Theme.GeruPreco"
         tools:targetApi="31">
         <activity
-            android:name=".activity.NotificationActivity"
-            android:exported="false" />
+            android:name=".activity.idea.IdeaActivity"
+            android:exported="false"
+            android:label="@string/title_activity_idea"
+            android:theme="@style/Theme.GeruPreco" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.GeruPreco">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            />
         </activity>
         <activity
-            android:name=".activity.LowestPriceActivity"
+            android:name=".activity.lowestprice.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.lowestprice.LowestPriceProduct"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.lowestprice.LowestPriceActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

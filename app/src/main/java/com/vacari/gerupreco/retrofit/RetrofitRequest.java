@@ -1,21 +1,14 @@
 package com.vacari.gerupreco.retrofit;
 
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
-import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.activity.LowestPriceActivity;
-import com.vacari.gerupreco.model.notaparana.LowestPrice;
+import com.vacari.gerupreco.activity.lowestprice.LowestPriceActivity;
 import com.vacari.gerupreco.model.notaparana.Product;
 import com.vacari.gerupreco.util.Callback;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class RetrofitRequest {
 

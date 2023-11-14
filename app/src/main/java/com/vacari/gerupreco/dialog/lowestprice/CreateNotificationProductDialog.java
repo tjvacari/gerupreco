@@ -1,30 +1,26 @@
-package com.vacari.gerupreco.dialog;
+package com.vacari.gerupreco.dialog.lowestprice;
 
 import android.content.DialogInterface;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.activity.MainActivity;
+import com.vacari.gerupreco.activity.lowestprice.LowestPriceProduct;
 import com.vacari.gerupreco.model.firebase.Item;
 import com.vacari.gerupreco.model.sqlite.Notification;
-import com.vacari.gerupreco.repository.ItemRepository;
 import com.vacari.gerupreco.repository.NotificationRepository;
-import com.vacari.gerupreco.util.Callback;
 import com.vacari.gerupreco.util.StringUtil;
 
 import java.math.BigDecimal;
 
 public class CreateNotificationProductDialog {
 
-    private MainActivity context;
+    private LowestPriceProduct context;
     private Item item;
 
-    public CreateNotificationProductDialog(MainActivity context, Item item) {
+    public CreateNotificationProductDialog(LowestPriceProduct context, Item item) {
         this.context = context;
         this.item = item;
     }

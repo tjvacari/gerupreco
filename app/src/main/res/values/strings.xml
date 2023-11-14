@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GeruPreço</string>
+    <string name="app_name">Super GeruApp</string>
     <string name="update_dialog">Nova atualização disponível, é necessário atualizar o App para continuar.</string>
     <string name="install_unknown">É necessário permitir instalação de Apps desconhecidos.</string>
     <string name="update">Atualizar</string>
@@ -21,6 +21,8 @@
     <string name="new_notification">Nova notificação</string>
     <string name="notifications">Notificações</string>
     <string name="notification_success">Notificação registrada</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_idea">IdeaActivity</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-package com.vacari.gerupreco.adapter;
+package com.vacari.gerupreco.adapter.lowestprice;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.activity.MainActivity;
+import com.vacari.gerupreco.activity.lowestprice.LowestPriceProduct;
 import com.vacari.gerupreco.model.firebase.Item;
 
 import java.util.List;
@@ -21,9 +21,9 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter {
 
     private List<Item> itemList;
-    private MainActivity mActivity;
+    private LowestPriceProduct mActivity;
 
-    public ItemAdapter(List<Item> itemList, MainActivity mActivity) {
+    public ItemAdapter(List<Item> itemList, LowestPriceProduct mActivity) {
         this.itemList = itemList;
         this.mActivity = mActivity;
     }

@@ -1,4 +1,4 @@
-package com.vacari.gerupreco.activity;
+package com.vacari.gerupreco.activity.lowestprice;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vacari.gerupreco.R;
-import com.vacari.gerupreco.adapter.LowestPriceAdapter;
+import com.vacari.gerupreco.adapter.lowestprice.LowestPriceAdapter;
 import com.vacari.gerupreco.retrofit.RetrofitRequest;
 
 import java.util.ArrayList;
