@@ -17,6 +17,11 @@
         android:theme="@style/Theme.GeruPreco"
         tools:targetApi="31">
         <activity
+            android:name=".activity.idea.RegisterIdeaActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register_idea"
+            android:theme="@style/Theme.GeruPreco" />
+        <activity
             android:name=".activity.idea.IdeaActivity"
             android:exported="false"
             android:label="@string/title_activity_idea"

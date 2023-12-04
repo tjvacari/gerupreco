@@ -23,6 +23,7 @@
     <string name="notification_success">Notificação registrada</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_idea">IdeaActivity</string>
+    <string name="title_activity_register_idea">RegisterIdea</string>
 
 
 </resources>
