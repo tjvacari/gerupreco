@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <item android:id="@+id/menu_scan_barcode"
         android:icon="@drawable/baseline_qr_code_scanner_24"
+        android:orderInCategory="1"
         android:title="@string/bar_code"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_search"
+        android:title="Buscar"
+        android:icon="@android:drawable/ic_menu_search"
+        android:orderInCategory="0"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
 <!--    <item android:id="@+id/menu_notification"-->
 <!--        android:icon="@drawable/baseline_notifications_active_24"-->
 <!--        android:title="@string/bar_code"-->

@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.GeruPreco" parent="Theme.Material3.Dark">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/material_dynamic_tertiary20</item>
     </style>
 
     <style name="Theme.GeruPreco" parent="Base.Theme.GeruPreco" />

@@ -16,21 +16,26 @@ import com.vacari.gerupreco.R;
 import com.vacari.gerupreco.activity.lowestprice.LowestPriceProduct;
 import com.vacari.gerupreco.model.firebase.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter {
 
     private List<Item> itemList;
+    private List<Item> allItemList;
     private LowestPriceProduct mActivity;
 
-    public ItemAdapter(List<Item> itemList, LowestPriceProduct mActivity) {
-        this.itemList = itemList;
+    public ItemAdapter(LowestPriceProduct mActivity) {
+        this.itemList = new ArrayList<>();
+        this.allItemList = new ArrayList<>();
         this.mActivity = mActivity;
     }
 
     public void refresh(List<Item> itemList) {
         this.itemList.clear();;
         this.itemList.addAll(itemList);
+        this.allItemList.clear();;
+        this.allItemList.addAll(itemList);
         notifyDataSetChanged();
     }
 
@@ -56,6 +61,23 @@ public class ItemAdapter extends RecyclerView.Adapter {
         holder.unitMeasure.setText(item.getUnitMeasure());
     }
 
+    public void filter(String query) {
+        List<Item> filteredList = new ArrayList<>();
+        if (query.isEmpty()) {
+            filteredList.addAll(allItemList); // Se a consulta estiver vazia, mostra a lista completa
+        } else {
+            for (Item item : allItemList) {
+                if (item.getDescription().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(item);
+                }
+            }
+        }
+
+        itemList.clear();
+        itemList.addAll(filteredList);
+        notifyDataSetChanged();
+    }
+
     private void configureActions(ViewHolder holder, Item item) {
         holder.card.setOnClickListener(view -> {
             mActivity.openLowestPrice(item.getBarCode());
@@ -68,7 +90,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
     }
 
     public boolean existProduct(String barCode) {
-        for(Item item : itemList) {
+        for(Item item : allItemList) {
             if(item.getBarCode().equals(barCode)) {
                 return true;
             }

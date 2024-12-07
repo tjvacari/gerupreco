@@ -6,6 +6,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.vacari.gerupreco.R;
 import com.vacari.gerupreco.activity.lowestprice.LowestPriceProduct;
@@ -64,18 +66,25 @@ public class RegisterProductDialog {
     }
 
     public void show() {
-        new MaterialAlertDialogBuilder(context)
+        AlertDialog dialog = new MaterialAlertDialogBuilder(context)
                 .setTitle(isNew ? R.string.new_product : R.string.edit)
                 .setCancelable(false)
-                .setView(dialog)
+                .setView(this.dialog)
                 .setPositiveButton(R.string.save, (DialogInterface dialogInterface, int i) -> {
-                    if(saveProduct(dialog)) {
+                    if (saveProduct(this.dialog)) {
                         dialogInterface.dismiss();
                     }
                 })
                 .setNegativeButton(R.string.cancel, (DialogInterface dialogInterface, int i) -> {
                     dialogInterface.dismiss();
-                }).show();
+                }).create();
+
+        dialog.setOnShowListener(d -> {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.btn_positive));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.btn_negative));
+        });
+
+        dialog.show();
     }
 
     private boolean saveProduct(View dialog) {

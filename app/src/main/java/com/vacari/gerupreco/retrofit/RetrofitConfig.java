@@ -11,11 +11,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitConfig {
-    public static final String BASE_URL = "https://menorpreco.notaparana.pr.gov.br/api/v1/produtos?local=6g9fp8frx&offset=0&raio=20&data=-1&ordem=0&gtin=";
+//    public static final String BASE_URL = "https://menorpreco.notaparana.pr.gov.br/api/v1/produtos?local=6g9fp8frx&offset=0&raio=20&data=-1&ordem=0&gtin=/";
+    public static final String BASE_URL = "https://menorpreco.notaparana.pr.gov.br/api/v1/";
 
     public Retrofit build() {
 
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder().connectTimeout(6, TimeUnit.SECONDS).readTimeout(6, TimeUnit.SECONDS);
 
         httpClient.addInterceptor(new Interceptor() {
             @Override
