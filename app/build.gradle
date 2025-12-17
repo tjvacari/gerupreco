@@ -10,10 +10,10 @@ android {
 
     defaultConfig {
         applicationId "com.vacari.gerupreco"
-        minSdk 26
+        minSdk 30
         targetSdk 36
-        versionCode 8
-        versionName "2.0"
+        versionCode 9
+        versionName "3.0"
         setProperty("archivesBaseName", "app-v" + versionCode)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

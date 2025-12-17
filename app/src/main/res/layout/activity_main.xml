@@ -3,6 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:id="@+id/main_layout">
 
     <GridLayout
@@ -61,13 +62,13 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/baseline_person_search_24" />
+                    android:src="@drawable/outline_blind_24" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text="Gerometro" />
+                    android:text="Gerugra de 3" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

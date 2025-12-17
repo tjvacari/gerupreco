@@ -17,16 +17,6 @@
         android:theme="@style/Theme.GeruPreco"
         tools:targetApi="31">
         <activity
-            android:name=".activity.idea.RegisterIdeaActivity"
-            android:exported="false"
-            android:label="@string/title_activity_register_idea"
-            android:theme="@style/Theme.GeruPreco" />
-        <activity
-            android:name=".activity.idea.IdeaActivity"
-            android:exported="false"
-            android:label="@string/title_activity_idea"
-            android:theme="@style/Theme.GeruPreco" />
-        <activity
             android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -42,6 +32,10 @@
             android:exported="false" />
         <activity
             android:name=".activity.lowestprice.LowestPriceProduct"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.simpleproportion.SimpleProportionActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
