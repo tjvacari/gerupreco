@@ -37,7 +37,6 @@ public class LowestPriceProduct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UpdateJob.initJobUpdate(this);
 //        DatabaseManager.initDatabase(this);
         setContentView(R.layout.activity_lowest_price_product);
 

@@ -5,6 +5,11 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @DatabaseTable(tableName = "notification")
 public class Notification {
 
@@ -32,67 +37,4 @@ public class Notification {
     @DatabaseField
     private boolean active;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBarCorde() {
-        return barCorde;
-    }
-
-    public void setBarCorde(String barCorde) {
-        this.barCorde = barCorde;
-    }
-
-    public Long getDateType() {
-        return dateType;
-    }
-
-    public void setDateType(Long dateType) {
-        this.dateType = dateType;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public BigDecimal getLastLowestPrice() {
-        return lastLowestPrice;
-    }
-
-    public void setLastLowestPrice(BigDecimal lastLowestPrice) {
-        this.lastLowestPrice = lastLowestPrice;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getDate() {
-        return date;
-    }
-
-    public void setDate(Long date) {
-        this.date = date;
-    }
-
-    public BigDecimal getTargetPrice() {
-        return targetPrice;
-    }
-
-    public void setTargetPrice(BigDecimal targetPrice) {
-        this.targetPrice = targetPrice;
-    }
 }

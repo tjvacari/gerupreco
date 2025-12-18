@@ -3,18 +3,32 @@ package com.vacari.gerupreco.activity.simpleproportion;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vacari.gerupreco.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SimpleProportionActivity extends AppCompatActivity {
 
     private EditText value1;
     private EditText value2;
-    private EditText value3;
-    private EditText value4;
+    private LinearLayout dynamicRowsContainer;
+    private FloatingActionButton btnAddRow;
+    private List<RowViews> rows = new ArrayList<>();
+
+    private static class RowViews {
+        View root;
+        EditText value3;
+        EditText value4;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,47 +37,90 @@ public class SimpleProportionActivity extends AppCompatActivity {
 
         value1 = findViewById(R.id.value1);
         value2 = findViewById(R.id.value2);
-        value3 = findViewById(R.id.value3);
-        value4 = findViewById(R.id.value4);
+        dynamicRowsContainer = findViewById(R.id.dynamicRowsContainer);
+        btnAddRow = findViewById(R.id.btnAddRow);
 
-        configureActions();
+        btnAddRow.setOnClickListener(v -> addNewRow());
+
+        configureBaseActions();
+        
+        // Adiciona a primeira linha automaticamente
+        addNewRow();
     }
 
-    private void configureActions() {
-        TextWatcher textWatcher = new TextWatcher() {
+    private void configureBaseActions() {
+        TextWatcher baseWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
-                calculate();
+                calculateAll();
             }
         };
 
-        value1.addTextChangedListener(textWatcher);
-        value2.addTextChangedListener(textWatcher);
-        value3.addTextChangedListener(textWatcher);
+        value1.addTextChangedListener(baseWatcher);
+        value2.addTextChangedListener(baseWatcher);
     }
 
-    private void calculate() {
+    private void addNewRow() {
+        View rowView = LayoutInflater.from(this).inflate(R.layout.item_proportion_row, dynamicRowsContainer, false);
+        RowViews row = new RowViews();
+        row.root = rowView;
+        row.value3 = rowView.findViewById(R.id.value3);
+        row.value4 = rowView.findViewById(R.id.value4);
+        
+        View btnRemove = rowView.findViewById(R.id.btnRemove);
+        btnRemove.setOnClickListener(v -> {
+            dynamicRowsContainer.removeView(rowView);
+            rows.remove(row);
+        });
+
+        row.value3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculateRow(row);
+            }
+        });
+
+        rows.add(row);
+        dynamicRowsContainer.addView(rowView);
+    }
+
+    private void calculateAll() {
+        for (RowViews row : rows) {
+            calculateRow(row);
+        }
+    }
+
+    private void calculateRow(RowViews row) {
         try {
-            double v1 = Double.parseDouble(value1.getText().toString().replace(",", "."));
-            double v2 = Double.parseDouble(value2.getText().toString().replace(",", "."));
-            double v3 = Double.parseDouble(value3.getText().toString().replace(",", "."));
+            String s1 = value1.getText().toString().replace(",", ".");
+            String s2 = value2.getText().toString().replace(",", ".");
+            String s3 = row.value3.getText().toString().replace(",", ".");
+
+            if (s1.isEmpty() || s2.isEmpty() || s3.isEmpty()) {
+                row.value4.setText("");
+                return;
+            }
+
+            double v1 = Double.parseDouble(s1);
+            double v2 = Double.parseDouble(s2);
+            double v3 = Double.parseDouble(s3);
 
             if (v1 != 0) {
                 double v4 = (v2 * v3) / v1;
-                value4.setText(String.format("%.2f", v4));
+                row.value4.setText(String.format("%.2f", v4));
             } else {
-                value4.setText("");
+                row.value4.setText("");
             }
         } catch (NumberFormatException e) {
-            value4.setText("");
+            row.value4.setText("");
         }
     }
 }

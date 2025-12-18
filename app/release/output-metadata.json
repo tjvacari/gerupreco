@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 9,
-      "versionName": "3.0-R",
-      "outputFile": "app-v9-release.apk"
+      "versionCode": 10,
+      "versionName": "3.1-R",
+      "outputFile": "app-v10-release.apk"
     }
   ],
   "elementType": "File",
@@ -22,14 +22,14 @@
       "minApi": 28,
       "maxApi": 30,
       "baselineProfiles": [
-        "baselineProfiles/1/app-v9-release.dm"
+        "baselineProfiles/1/app-v10-release.dm"
       ]
     },
     {
       "minApi": 31,
       "maxApi": 2147483647,
       "baselineProfiles": [
-        "baselineProfiles/0/app-v9-release.dm"
+        "baselineProfiles/0/app-v10-release.dm"
       ]
     }
   ],

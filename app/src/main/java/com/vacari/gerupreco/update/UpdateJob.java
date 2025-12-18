@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.vacari.gerupreco.R;
+import com.vacari.gerupreco.activity.MainActivity;
 import com.vacari.gerupreco.model.firebase.AppVersion;
 
 import java.io.BufferedInputStream;
@@ -34,11 +35,11 @@ import java.util.concurrent.Executors;
 
 public class UpdateJob {
 
-    private static AppCompatActivity context;
+    private static MainActivity context;
     private static AlertDialog confirmationDialog;
     private static ProgressDialog progressDialog;
 
-    public static void initJobUpdate(AppCompatActivity context) {
+    public static void initJobUpdate(MainActivity context) {
         UpdateJob.context = context;
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -62,6 +63,8 @@ public class UpdateJob {
 
             if(currentApp.versionCode < appVersionTO.getVersionCode()) {
                 showDialogUpdate(appVersionTO);
+            } else {
+                context.configureActions();
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
