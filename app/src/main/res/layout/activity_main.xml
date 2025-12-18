@@ -59,8 +59,8 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="67dp"
-                    android:layout_height="69dp"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/outline_blind_24" />
 
